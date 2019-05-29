@@ -1,40 +1,39 @@
-import java.util.Scanner;
+
+package worldpopulationcalc;
+
+import java.time.Year;
 /**
  *
- * @author xmenji
+ * @author Titan
  */
+
 public class WorldPopulationCalc {
 
-    /**
-     * @param args the command line arguments
-     */
+//Cosntants needed
+public static final long CURRENT_POPULATION = 7707226067L;
+public static final double GROWTH_RATE = 1.07;
+public static final int CURRENT_YEAR = Year.now().getValue();
+    
     public static void main(String[] args) {
-         long currentPop,
-                 oneYear = 0,
-                 twoYear = 0,
-                 threeYear = 0,
-                 fourYear = 0,
-                 fiveYear = 0;
-         float growthRate;
+        
+         long currentPopulation = CURRENT_POPULATION;
+         long previousPopulation = CURRENT_POPULATION;
+         int year = CURRENT_YEAR;
          
-         Scanner input = new Scanner(System.in);
-         
-         System.out.print("Enter the current world population: ");
-         currentPop = input.nextLong();
-         
-         System.out.print("Enter the current growth rate (enter percentage): ");
-         growthRate = input.nextFloat();
-         
-         oneYear = (long) ((growthRate / 100) * currentPop) + currentPop;
-         twoYear = (long) ((growthRate / 100) * oneYear) + oneYear;
-         threeYear = (long) ((growthRate / 100) * twoYear) + twoYear;
-         fourYear = (long) ((growthRate / 100) * threeYear) + threeYear;
-         fiveYear = (long) ((growthRate / 100) * fourYear) + fourYear;
-         
-         System.out.println("\nEstimated 5-year World Population");
-         System.out.printf("1-year: %d%n2-year: %d%n3-year: %d%n4-year: %d%n5-year: %d%n",
-                 oneYear, twoYear, threeYear, fourYear, fiveYear);
-         
+         //Predict the population for the next 75 years
+         System.out.println("\tProjected 75-year World Population\n");
+         for (int i = 0; i <= 75; i++){      
+             //Get the current year's population
+             currentPopulation = (long) ( (GROWTH_RATE / 100 ) * currentPopulation) + currentPopulation;
+             
+             //Print out the current year, current population, and difference between
+             //the population of the current year versus the previous year
+             System.out.printf("Year: %d | Population: %d | Inscrease: +%d%n",
+                     year++, currentPopulation, currentPopulation - previousPopulation);
+             
+             //Set current population number to the previous and restart loop
+             previousPopulation = currentPopulation;
+         }     
          
     }
     
